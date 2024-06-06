@@ -3,10 +3,7 @@ package com.kariuki.ecommerce.order;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,6 +23,12 @@ public class OrderController {
             @Valid @RequestBody OrderRequest request
     ) {
        return ResponseEntity.ok(orderService.createOrder(request));
+
+    }
+
+    @GetMapping("/{order-id}")
+    public ResponseEntity<Order> getOrderById(@PathVariable("order-id") Integer orderId){
+        return ResponseEntity.ok(orderService.findOrder(orderId));
     }
 
 

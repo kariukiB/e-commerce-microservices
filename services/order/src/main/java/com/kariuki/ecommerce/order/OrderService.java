@@ -7,6 +7,7 @@ import com.kariuki.ecommerce.orderline.OrderLineRequest;
 import com.kariuki.ecommerce.orderline.OrderLineService;
 import com.kariuki.ecommerce.product.ProductClient;
 import com.kariuki.ecommerce.product.PurchaseRequest;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +24,7 @@ public class OrderService {
     private final OrderProducer orderProducer;
 
     public List<Order> getAllOrders() {
-        return null;
+        return orderRepository.findAll();
     }
 
     public Integer createOrder(OrderRequest request) {
@@ -56,5 +57,9 @@ public class OrderService {
                 purchasedProducts
         ));
         return order.getId();
+    }
+
+    public Order findOrder(Integer orderId) {
+        return orderRepository.findById(orderId).orElseThrow(()-> new EntityNotFoundException(String.format("Order with id: %d not found", orderId)));
     }
 }

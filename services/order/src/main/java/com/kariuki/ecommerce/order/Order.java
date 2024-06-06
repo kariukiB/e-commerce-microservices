@@ -1,6 +1,6 @@
 package com.kariuki.ecommerce.order;
 
-import com.kariuki.ecommerce.orderline.OrderLines;
+import com.kariuki.ecommerce.orderline.OrderLine;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,7 +30,7 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;
     @OneToMany(mappedBy = "order")
-    private List<OrderLines> orderLines;
+    private List<OrderLine> orderLines;
     @CreatedDate
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdDate;

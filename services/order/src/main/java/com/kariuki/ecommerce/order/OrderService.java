@@ -5,6 +5,8 @@ import com.kariuki.ecommerce.kafka.OrderConfirmation;
 import com.kariuki.ecommerce.kafka.OrderProducer;
 import com.kariuki.ecommerce.orderline.OrderLineRequest;
 import com.kariuki.ecommerce.orderline.OrderLineService;
+import com.kariuki.ecommerce.payment.PaymentClient;
+import com.kariuki.ecommerce.payment.PaymentRequest;
 import com.kariuki.ecommerce.product.ProductClient;
 import com.kariuki.ecommerce.product.PurchaseRequest;
 import jakarta.persistence.EntityNotFoundException;
@@ -22,6 +24,7 @@ public class OrderService {
     private final OrderMapper mapper;
     private final OrderLineService orderLineService;
     private final OrderProducer orderProducer;
+    private final PaymentClient paymentClient;
 
     public List<Order> getAllOrders() {
         return orderRepository.findAll();
@@ -48,6 +51,15 @@ public class OrderService {
                     )
             );
         }
+        //Initiate payment
+        var paymentRequest = new PaymentRequest(
+                request.amount(),
+                request.paymentMethod(),
+                order.getReference(),
+                order.getId(),
+                customer
+        );
+        paymentClient.requestOrderPayment(paymentRequest);
         //Send order to message broker
         orderProducer.sendOrderConfirmation(new OrderConfirmation(
                 request.reference(),

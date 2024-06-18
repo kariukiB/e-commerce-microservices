@@ -11,6 +11,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 
 import static org.springframework.http.HttpHeaders.*;
+import static org.springframework.http.HttpMethod.*;
 
 @Service
 @RequiredArgsConstructor
@@ -26,7 +27,7 @@ public class ProductClient {
         ParameterizedTypeReference<List<PurchaseResponse>> responseType = new ParameterizedTypeReference<>() {};
         ResponseEntity<List<PurchaseResponse>> responseEntity = restTemplate.exchange(
                 productUrl + "/purchase",
-                HttpMethod.POST,
+                POST,
                 requestEntity,
                 responseType
         );

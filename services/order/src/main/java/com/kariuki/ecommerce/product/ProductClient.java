@@ -16,8 +16,8 @@ import static org.springframework.http.HttpMethod.*;
 @Service
 @RequiredArgsConstructor
 public class ProductClient {
-    @Value("application.config.product-url")
-    private String productUrl;
+   // @Value("application.config.product-url")
+    private String productUrl = "http://localhost:8222/api/v1/products";
     private final RestTemplate restTemplate;
 
     public List<PurchaseResponse> purchaseProducts(List<PurchaseRequest> requestBody){

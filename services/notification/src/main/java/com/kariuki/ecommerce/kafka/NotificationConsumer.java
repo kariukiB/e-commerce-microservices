@@ -5,7 +5,6 @@ import com.kariuki.ecommerce.kafka.order.OrderConfirmation;
 import com.kariuki.ecommerce.kafka.payment.PaymentConfirmation;
 import com.kariuki.ecommerce.notification.Notification;
 import com.kariuki.ecommerce.notification.NotificationRepository;
-import com.kariuki.ecommerce.notification.NotificationType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
